@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -37,7 +36,7 @@ export class AppComponent implements OnInit{
   }
 
   ajedrez():string {
-    //Variable simuladora del tablero, las x representan la reyna
+    //Variable simuladora del tablero, las x representan la reina
     const tablero:string[][] = [
       ['x','','','','','','',''],
       ['','','','','x','','',''],
@@ -48,17 +47,31 @@ export class AppComponent implements OnInit{
       ['','x','','','','','',''],
       ['','','','x','','','',''],
     ]
+    //Ciclos para recorrer el arreglo
     for (let i = 0; i < tablero.length; i++) {
       for (let j = 0; j < tablero[0].length; j++) {
+        //Variable que obtiene el valor de la casilla actual
         let casillaActual = tablero[i][j];
+        //Condición que verifica si la casilla actual tiene una reina en su posición
         if(casillaActual==='x'){
-            // //primero verificar si no tiene otra reina para su derecha o diagonal inferior derecha
+          //Multiples contadores para recorrer el tablero en busca de equis hacia la derecha, digonal superior derecha y en diagonal inferior derecha
             let contador = j
-            let casillaComparar 
+            let contadorDiagonalInferior = i
+            let contadorDiagonalSuperior = i
+            //Variables que almacenaran la casilla a comparar con la casilla actual en busca de otra reina para atacar
+            let casillaCompararLado
+            let casillaDiagonalInferior 
+            let casillaDiagonalSuperior
             while(contador < tablero[i].length-1){
-              contador++
-              casillaComparar = tablero[i][contador]
-              if (casillaComparar === 'x') {
+              //Contador recorre hacía la derecha en busca de otra reina
+              contador++              
+              //Contador que recorre hacía la diagonal inferior derecha 
+              contadorDiagonalInferior < 7 ? contadorDiagonalInferior++ : contadorDiagonalInferior--
+              //Contador que recorre hacía la diagonal superior derecha             
+              contadorDiagonalSuperior === 0 ? contadorDiagonalSuperior : contadorDiagonalSuperior--
+              casillaCompararLado = tablero[i][contador]
+              casillaDiagonalInferior = tablero[contadorDiagonalInferior][contador]
+              if (casillaCompararLado === 'x' || casillaDiagonalInferior === 'x' || casillaDiagonalSuperior === 'x'){
                 return "La reina en la posicion " + i + j + "esta siendo atacada";
               }
             }
@@ -67,6 +80,4 @@ export class AppComponent implements OnInit{
     }
         return "Ninguna reina esta atacando" 
   }
-    
-  
 }
