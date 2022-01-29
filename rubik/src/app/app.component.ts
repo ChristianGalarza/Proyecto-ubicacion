@@ -56,22 +56,26 @@ export class AppComponent implements OnInit{
         if(casillaActual==='x'){
           //Multiples contadores para recorrer el tablero en busca de equis hacia la derecha, digonal superior derecha y en diagonal inferior derecha
             let contador = j
+            let contadorArriba = i
             let contadorDiagonalInferior = i
             let contadorDiagonalSuperior = i
             //Variables que almacenaran la casilla a comparar con la casilla actual en busca de otra reina para atacar
             let casillaCompararLado
+            let casillaCompararArriba
             let casillaDiagonalInferior 
             let casillaDiagonalSuperior
             while(contador < tablero[i].length-1){
               //Contador recorre hacía la derecha en busca de otra reina
-              contador++              
+              contador++       
+              contadorArriba++       
               //Contador que recorre hacía la diagonal inferior derecha 
               contadorDiagonalInferior < 7 ? contadorDiagonalInferior++ : contadorDiagonalInferior--
               //Contador que recorre hacía la diagonal superior derecha             
               contadorDiagonalSuperior === 0 ? contadorDiagonalSuperior : contadorDiagonalSuperior--
               casillaCompararLado = tablero[i][contador]
+              casillaCompararArriba = tablero[contadorArriba][contador]
               casillaDiagonalInferior = tablero[contadorDiagonalInferior][contador]
-              if (casillaCompararLado === 'x' || casillaDiagonalInferior === 'x' || casillaDiagonalSuperior === 'x'){
+              if (casillaCompararLado === 'x' || casillaDiagonalInferior === 'x' || casillaDiagonalSuperior === 'x' || casillaCompararArriba === 'x'){
                 return "La reina en la posicion " + i + j + "esta siendo atacada";
               }
             }
